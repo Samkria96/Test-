@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { textChangeRangeIsUnchanged } from "typescript";
 import { UserController } from "../Controllers/UserController";
-
+import { GlobalMiddleware } from "../Middlewares/GlobalMiddleware";
+import { Uservalidator } from "../Validators/UserValidator";
 
 export class UserRoutes{
     public router : Router
@@ -20,19 +20,18 @@ export class UserRoutes{
     }
 
     postRoutes(){
-       this.router.post('/add-student',UserController.addStudent);
-       this.router.post('/search-sort',UserController.searchSort);
-       this.router.post('/filter',UserController.filter)
+       this.router.post('/add-student',Uservalidator.student(),GlobalMiddleware.checkError,UserController.addStudent);   
+       this.router.post('/search-sort-filter',UserController.searchSortFilter)
     }
 
     putRoutes(){
-        this.router.put('/update-student',UserController.update);
+        this.router.put('/update-student/:userId',UserController.update);
     }
     patchRoutes(){
 
     }
     deleteRoutes(){
-           this.router.delete('/delete-student',UserController.deleteStudent);
+           this.router.delete('/delete-student/:userId',UserController.deleteStudent);
     }
 }
 

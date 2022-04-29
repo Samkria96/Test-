@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config({path:'./config.env'})
 import express from "express";
 import mongoose from "mongoose";
 import { envron } from "./Environments/env";
@@ -17,7 +19,7 @@ export class Server {
      }
 
      setMongodb(){
-         const dataUrl = envron().db_url
+         const dataUrl:string = envron()?.db_url
         mongoose.connect(dataUrl).then(()=>{
             console.log("Database Connected")
         });

@@ -19,7 +19,7 @@ export class Server {
      }
 
      setMongodb(){
-         const dataUrl:string = envron()?.db_url
+         const dataUrl:string = envron().db_url
         mongoose.connect(dataUrl).then(()=>{
             console.log("Database Connected")
         });
